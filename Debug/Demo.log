@@ -1,6 +1,6 @@
 ﻿  main.cpp
-c:\skolarbete\scritping\opengl_template\main.cpp(299): warning C4244: 'initializing': conversion from 'clock_t' to 'float', possible loss of data
-c:\skolarbete\scritping\opengl_template\main.cpp(343): warning C4244: '=': conversion from 'clock_t' to 'float', possible loss of data
-c:\skolarbete\scritping\opengl_template\main.cpp(318): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+c:\skolarbete\scritping\code\main.cpp(325): warning C4244: 'initializing': conversion from 'clock_t' to 'float', possible loss of data
+c:\skolarbete\scritping\code\main.cpp(369): warning C4244: '=': conversion from 'clock_t' to 'float', possible loss of data
+c:\skolarbete\scritping\code\main.cpp(344): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
   c:\program files (x86)\windows kits\10\include\10.0.16299.0\ucrt\stdio.h(1772): note: see declaration of 'sprintf'
-  Demo.vcxproj -> C:\skolarbete\Scritping\OpenGL_template\Debug\Demo.exe
+  Demo.vcxproj -> C:\skolarbete\Scritping\Code\Debug\Demo.exe

@@ -34,7 +34,10 @@ GLuint gVertexBuffer = 0;
 GLuint gVertexAttribute = 0;
 GLuint gShaderProgram = 0;
 
-glm::vec2 playerPos = glm::vec2(0.0f);
+int HEIGHT = 800;
+int WIDTH = 800;
+
+glm::vec2 playerPos = glm::vec2(0.0f, -2.0f);
 glm::vec2 topLeft;
 glm::vec2 bottomRight;
 //=================================================================================================================================
@@ -42,11 +45,11 @@ glm::vec2 bottomRight;
 glm::mat4 world = glm::mat4(1.0f);
 
 glm::mat4 view = glm::lookAt(
-	glm::vec3(0, 0, 2),
+	glm::vec3(0, 0, 15),
 	glm::vec3(0, 0, 0),
 	glm::vec3(0, 1, 0));
 
-glm::mat4 projection = glm::perspective(glm::radians(45.0f), float(640 / 480), 0.1f, 20.0f);
+glm::mat4 projection = glm::perspective(glm::radians(45.0f), float(HEIGHT / WIDTH), 0.1f, 40.0f);
 //=================================================================================================================================
 // macro that returns "char*" with offset "i"
 // BUFFER_OFFSET(5) transforms in "(char*)nullptr+(5)"
@@ -179,7 +182,11 @@ void CreateTriangleData()
 		{ -5.0f,  5.0f, 0.0f,  1.0f, 1.0f, 1.0f,   0.0f, 0.0f}, //White
 		{ -5.0f, -5.0f, 0.0f,  0.0f, 0.0f, 1.0f,   0.0f, 1.0f} // Blue 2
 	};
-	//=================================================================================================================================0
+	//=================================================================================================================================
+
+	topLeft = glm::vec2(-5.0f, 5.0f);
+	bottomRight = glm::vec2(5.0f, -5.0f);
+
 	// Vertex Array Object (VAO), description of the inputs to the GPU 
 	glGenVertexArrays(1, &gVertexAttribute);
 	// bind is like "enabling" the object to use it
@@ -255,11 +262,10 @@ void CreateTriangleData()
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 }
 
-
 void SetViewport()
 {
 	// usually (not necessarily) this matches with the window size
-	glViewport(0, 0, 640, 480);
+	glViewport(0, 0, HEIGHT, WIDTH);
 }
 
 void Render()
@@ -275,6 +281,24 @@ void Render()
 
 	GLint PlayerPos = glGetUniformLocation(gShaderProgram, "playerPos");
 	glUniform2fv(PlayerPos, 1, value_ptr(playerPos));
+
+	GLint TopLeft = glGetUniformLocation(gShaderProgram, "leftTop");
+	glUniform2fv(TopLeft, 1, value_ptr(topLeft));
+
+	GLint RightBottom = glGetUniformLocation(gShaderProgram, "rightBottom");
+	glUniform2fv(RightBottom, 1, value_ptr(bottomRight));
+
+	//for (int i = 0; i < 5; i++)
+	//{
+	//	if (playerPos.x <= topLeft.x + ((bottomRight.x / 2.5)*i) + 0.01 && playerPos.x >= topLeft.x + ((bottomRight.x / 2.5)*i) - 0.01)
+	//	{
+	//		//fragment_color = vec4(0.0f, 0.0f, 0.0f, 1.0f);
+	//	}
+	//	//if(fragPos.y <= (leftTop.y + ((rightBottom.y/2.5)*i)+0.01) && fragPos.y >= (leftTop.y + ((rightBottom.y/2.5)*i)-0.01))
+	//	//{
+	//	//	fragment_color = vec4(0.0f, 0.0f, 0.0f, 1.0f);
+	//	//}
+	//}
 
 	// set the color TO BE used (this does not clear the screen right away)
 	glClearColor(0, 0, 0, 1);
@@ -377,7 +401,7 @@ HWND InitWindow(HINSTANCE hInstance)
 		return false;
 
 	// window size
-	RECT rc = { 0, 0, 640, 480 };
+	RECT rc = { 0, 0, HEIGHT, WIDTH };
 	AdjustWindowRect(&rc, WS_OVERLAPPEDWINDOW, FALSE);
 
 	// win32 call to create a window
